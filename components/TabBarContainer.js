@@ -11,10 +11,10 @@ import TabBarItem from './TabBarItem';
 const TabBarContainer = (props) => (
     <Tabs
         style={styles.tabContainer}
+        selected={props.selectedService}
         onSelect={comp => {
             props.onTabChange(comp.props.name)
-        }}
-          
+        }} 
     >
         <TabBarItem name="web" label="Web Server" icon="server"></TabBarItem>
         <TabBarItem name="db" label="DB Server" icon="database"></TabBarItem>
