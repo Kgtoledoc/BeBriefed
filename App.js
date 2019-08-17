@@ -6,67 +6,38 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import React, { Component } from 'react';
+import MainContainer from './components/MainContainer'
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+class App extends Component {
 
-const App = () => {
-  return (
-    <Text>ISAMAR</Text>
-  );
-};
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedService: 'db',
+      services: [
+        { key: 'web', isUp: true, lastUpTime: null },
+        { key: 'db', isUp: false, lastUpTime: new Date((new Date()).getTime() - 5 * 60 * 1000) },
+        { key: 'mail', isUp: true, lastUpTime: null },
+      ]
+    }
+    this._switchService = this._switchService.bind(this)
+  }
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+  _switchService(nextService) {
+    this.setState({
+      selectedService: nextService
+    })
+  }
+  render() {
+    return (
+      <MainContainer selectedService={this.state.selectedService} services={this.state.services} onServiceChange={this._switchService}></MainContainer>
+    );
+  }
+}
+
+
+
+
 
 export default App;
